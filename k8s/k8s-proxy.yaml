@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-deployment
+  namespace: simple-taskapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+  namespace: simple-taskapp
+spec:
+  selector:
+    app: proxy
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: simple-taskapp
+data:
+  default.conf: |
+    server {
+        listen 80;
+
+        # /app2にアクセスがあった場合、/app2/にリダイレクト
+        location = /app2 {
+            return 301 /app2/;
+        }
+
+        # /app2/配下のリクエストをFlaskへリライトしてプロキシ
+        location /app2/ {
+            rewrite ^/app2/(.*)$ /$1 break;
+            proxy_pass http://web-service:5000;
+            proxy_redirect / /app2/;  # 追加: リダイレクトヘッダーを調整
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # /app2/api/配下のリクエストをFastAPIへリライトしてプロキシ
+        location /app2/api/ {
+            rewrite ^/app2/api/(.*)$ /$1 break;
+            proxy_pass http://api-service:8000;
+            proxy_redirect / /app2/api/;  # 必要に応じて追加
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }

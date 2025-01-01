@@ -68,7 +68,7 @@ data:
 
         # /app2/api/配下のリクエストをFastAPIへリライトしてプロキシ
         location /app2/api/ {
-            rewrite ^/app2/api/(.*)$ /$1 break;
+            rewrite ^/app2/api/?(.*)$ /$1 break;
             proxy_pass http://api-service:8000;
             proxy_redirect / /app2/api/;  # 必要に応じて追加
             proxy_set_header Host $host;

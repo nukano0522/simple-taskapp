@@ -11,10 +11,10 @@ app.secret_key = "pass"  # Flashメッセージ用
 
 
 # 環境変数からプロキシホスト名を取得
-# PROXY_HOST = os.environ.get("PROXY_HOST", "proxy-service")
-# API_URL = f"http://{PROXY_HOST}/api/tasks"
-API_HOST = os.environ.get("API_HOST", "api-service")
-API_URL = f"http://{API_HOST}:8000/tasks"
+PROXY_HOST = os.environ.get("PROXY_HOST", "proxy-service")
+API_URL = f"http://{PROXY_HOST}/app2/api/tasks"
+# API_HOST = os.environ.get("API_HOST", "api-service")
+# API_URL = f"http://{API_HOST}:8000/tasks"
 
 
 @app.route("/")

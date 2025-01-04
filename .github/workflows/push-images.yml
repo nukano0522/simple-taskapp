@@ -2,11 +2,11 @@ name: CI/CD for Simple Task App
 
 on:
   push:
-    branches:
-      - feature/cicd
     tags:
       - 'v*' # タグが v始まりの形式でプッシュされた場合に実行
-
+    branches:
+      - main
+    
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
           context: ./api
           file: ./api/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/simple-taskapp-fastapi-api:${{ env.IMAGE_VERSION }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/simple-taskapp-fastapi:${{ env.IMAGE_VERSION }}
 
       # Web イメージのビルドとプッシュ
       - name: Build and Push Web Image

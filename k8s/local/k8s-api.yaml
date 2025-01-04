@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: nukano0522/simple-taskapp-fastapi:v0.1.2
+        image: nukano0522/simple-taskapp-fastapi:v0.1.3
         ports:
         - containerPort: 8000
         env:

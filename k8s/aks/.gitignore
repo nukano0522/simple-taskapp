@@ -1,0 +1,6 @@
+/bak
+*backup
+/terraform/.terraform
+.terraform.lock.hcl
+*tfplan
+*tfstate

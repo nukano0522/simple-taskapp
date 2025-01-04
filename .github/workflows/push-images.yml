@@ -35,8 +35,8 @@ jobs:
       - name: Build and Push API Image
         uses: docker/build-push-action@v5
         with:
-          context: ./simple-taskapp/api
-          file: ./simple-taskapp/api/Dockerfile
+          context: ./api
+          file: ./api/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-taskapp-fastapi-api:${{ env.IMAGE_VERSION }}
 
@@ -44,7 +44,7 @@ jobs:
       - name: Build and Push Web Image
         uses: docker/build-push-action@v5
         with:
-          context: ./simple-taskapp/web
-          file: ./simple-taskapp/web/Dockerfile
+          context: ./web
+          file: ./web/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-taskapp-flask-web:${{ env.IMAGE_VERSION }}

@@ -1,9 +1,9 @@
 name: CI/CD for Simple Task App
 
 on:
-  branches:
-    - feature/cicd
   push:
+    branches:
+      - feature/cicd
     tags:
       - 'v*' # タグが v始まりの形式でプッシュされた場合に実行
 

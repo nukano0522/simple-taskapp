@@ -18,6 +18,7 @@ jobs:
         with:
           # push直前のコミットを取得するため、fetch-depth: 0 を指定
           fetch-depth: 0
+          tags: true
 
       # Git タグ取得
       - name: Get Git Tag

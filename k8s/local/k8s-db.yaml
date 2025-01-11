@@ -1,3 +1,40 @@
+# ==========================
+# PersistentVolume の定義
+# ==========================
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  namespace: simple-taskapp
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/mysql
+
+---
+# ==========================
+# PersistentVolumeClaim の定義
+# ==========================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: simple-taskapp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+# ==========================
+# Deployment の定義
+# ==========================
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,8 +69,13 @@ spec:
           mountPath: /var/lib/mysql
       volumes:
       - name: mysql-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+
 ---
+# ==========================
+# Service の定義
+# ==========================
 apiVersion: v1
 kind: Service
 metadata:

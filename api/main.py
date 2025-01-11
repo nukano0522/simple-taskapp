@@ -25,28 +25,6 @@ def get_connection():
     )
 
 
-@app.on_event("startup")
-def startup():
-    """
-    コンテナ起動時にテーブルがなければ作成する
-    """
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        """
-        CREATE TABLE IF NOT EXISTS tasks (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          title VARCHAR(255) NOT NULL,
-          description TEXT,
-          done BOOLEAN NOT NULL DEFAULT 0
-        )
-    """
-    )
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-
 @app.get("/tasks")
 def get_tasks():
     conn = get_connection()

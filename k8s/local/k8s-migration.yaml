@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration-job
+  namespace: simple-taskapp
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-migration
+        image: nukano0522/simple-taskapp-db-migration:v0.1.0 
+        env:
+        - name: DB_HOST
+          value: "db-service"
+        - name: DB_USER
+          value: "myuser"
+        - name: DB_PASSWORD
+          value: "mypass"
+        - name: DB_NAME
+          value: "task_db"
+      restartPolicy: OnFailure 

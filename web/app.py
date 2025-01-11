@@ -5,9 +5,17 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+# 環境変数からベースパスを取得（デフォルトは空文字列）
+BASE_PATH = os.environ.get("BASE_PATH", "")
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = "pass"  # Flashメッセージ用
+
+
+# テンプレートにグローバル変数として追加
+@app.context_processor
+def inject_base_path():
+    return dict(base_path=BASE_PATH)
 
 
 # 環境変数からプロキシホスト名を取得
@@ -55,13 +63,5 @@ def delete_task(task_id):
     return redirect(url_for("index"))
 
 
-# デバッグ用のルートを追加
-@app.route("/debug")
-def debug():
-    # 静的ファイルの実際のパスを表示
-    static_path = app.static_folder
-    return f"Static folder path: {static_path}"
-
-
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(host="0.0.0.0", port=5000)

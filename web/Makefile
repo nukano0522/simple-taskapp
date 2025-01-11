@@ -1,6 +1,6 @@
 NAMESPACE := simple-taskapp
 DOCKER_REGISTRY := nukano0522
-IMAGE_TAG := latest
+IMAGE_TAG := v0.1.4-test
 APP_NAME := simple-taskapp-flask-web
 DOCKERFILE_PATH := .
 K8S_DEPLOYMENT_NAME := web-deployment

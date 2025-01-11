@@ -3,21 +3,32 @@
   <head>
     <meta charset="utf-8">
     <title>Simple Task Manager</title>
+    <link rel="stylesheet" href="{{ base_path }}/static/css/style.css">
+    <script>
+      function validateForm() {
+        const title = document.getElementById('title').value.trim();
+        const description = document.getElementById('description').value.trim();
+        
+        if (!title || !description) {
+          alert('タイトルと説明文の両方を入力してください。');
+          return false;
+        }
+        return true;
+      }
+    </script>
   </head>
   <body>
     <h1>Task List</h1>
-    <!-- <form action="{{ url_for('add_task') }}" method="POST"> -->
-    <form action="/app2/add" method="POST">
-      <input type="text" name="title" placeholder="Title">
-      <input type="text" name="description" placeholder="Description">
+    <form action="{{ base_path }}/add" method="POST" onsubmit="return validateForm()">
+      <input type="text" id="title" name="title" placeholder="Title" required>
+      <input type="text" id="description" name="description" placeholder="Description" required>
       <button type="submit">Add Task</button>
     </form>
     <ul>
       {% for task in tasks %}
         <li>
           <strong>{{task.title}}</strong> - {{task.description}}
-          <!-- <a href="{{ url_for('delete_task', task_id=task.id) }}">[Delete]</a> -->
-          <a href="/app2/delete/{{task.id}}">[Delete]</a>
+          <a href="{{ base_path }}/delete/{{task.id}}">[Delete]</a>
         </li>
       {% endfor %}
     </ul>

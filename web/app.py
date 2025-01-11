@@ -5,9 +5,17 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+# 環境変数からベースパスを取得（デフォルトは空文字列）
+BASE_PATH = os.environ.get("BASE_PATH", "")
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = "pass"  # Flashメッセージ用
+
+
+# テンプレートにグローバル変数として追加
+@app.context_processor
+def inject_base_path():
+    return dict(base_path=BASE_PATH)
 
 
 # 環境変数からプロキシホスト名を取得

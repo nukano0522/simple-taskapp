@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = "pass"  # Flashメッセージ用
 
 
@@ -55,5 +55,13 @@ def delete_task(task_id):
     return redirect(url_for("index"))
 
 
+# デバッグ用のルートを追加
+@app.route("/debug")
+def debug():
+    # 静的ファイルの実際のパスを表示
+    static_path = app.static_folder
+    return f"Static folder path: {static_path}"
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0")

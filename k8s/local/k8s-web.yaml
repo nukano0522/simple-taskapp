@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: nukano0522/simple-taskapp-flask-web:v0.1.3
+        image: nukano0522/simple-taskapp-flask-web:v0.1.4-test
         ports:
         - containerPort: 5000
         env:

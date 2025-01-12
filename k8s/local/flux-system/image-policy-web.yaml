@@ -8,5 +8,5 @@ spec:
   imageRepositoryRef:
     name: simple-taskapp-web
   policy:
-    alphabetical:
-      order: asc
+    semver:
+      range: '>=0.0.0'

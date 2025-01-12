@@ -15,14 +15,14 @@ spec:
     spec:
       containers:
       - name: flask
-        image: nukano0522/simple-taskapp-flask-web:v0.1.6 # {"$imagepolicy": "flux-system:simple-taskapp-web"}
+        image: nukano0522/simple-taskapp-flask-web:v0.1.7 # {"$imagepolicy": "flux-system:simple-taskapp-web"}
         ports:
         - containerPort: 5000
         env:
         - name: PROXY_HOST
-          value: "proxy-service"  # Nginx Service名を指定
+          value: "proxy-service" # Nginx Service名を指定
         - name: API_HOST
-          value: "api-service"  # FastAPI Service名を指定
+          value: "api-service" # FastAPI Service名を指定
 ---
 apiVersion: v1
 kind: Service

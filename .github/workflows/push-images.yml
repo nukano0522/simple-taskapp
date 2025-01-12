@@ -4,8 +4,8 @@ on:
   push:
     tags:
       - 'v*' # タグが v始まりの形式でプッシュされた場合に実行
-    # branches:
-    #   - main
+    branches:
+      - main
     
 jobs:
   build-and-deploy:

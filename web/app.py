@@ -63,5 +63,11 @@ def delete_task(task_id):
     return redirect(url_for("index"))
 
 
+# デバッグ用
+@app.route("/debug")
+def debug():
+    return f"API_URL: {API_URL}"
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

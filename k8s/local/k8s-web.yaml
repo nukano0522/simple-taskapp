@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: nukano0522/simple-taskapp-flask-web:v0.1.7 # {"$imagepolicy": "flux-system:simple-taskapp-web"}
+        image: nukano0522/simple-taskapp-flask-web:v0.1.8-4-g3ae726f # {"$imagepolicy": "flux-system:simple-taskapp-web"}
         ports:
         - containerPort: 5000
         env:

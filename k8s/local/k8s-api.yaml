@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: nukano0522/simple-taskapp-fastapi:v0.1.8-5-g2248537 # {"$imagepolicy": "flux-system:simple-taskapp-api"}
+        image: nukano0522/simple-taskapp-fastapi:v0.1.8-6-g2351189 # {"$imagepolicy": "flux-system:simple-taskapp-api"}
         ports:
         - containerPort: 8000
         env:

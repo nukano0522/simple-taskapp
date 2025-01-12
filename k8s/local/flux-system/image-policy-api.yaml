@@ -1,0 +1,15 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: simple-taskapp-api
+  namespace: flux-system
+spec:
+  filterTags:
+    extract: ""
+    pattern: v\d+\.\d+\.\d+
+  imageRepositoryRef:
+    name: simple-taskapp-api
+  policy:
+    alphabetical:
+      order: asc

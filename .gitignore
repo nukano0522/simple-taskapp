@@ -1,4 +1,5 @@
 /k8s/aks/teraform/.terraform
+/k8s/local/gitops.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

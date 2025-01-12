@@ -5,11 +5,8 @@ metadata:
   name: simple-taskapp-api
   namespace: flux-system
 spec:
-  filterTags:
-    extract: ""
-    pattern: v\d+\.\d+\.\d+
   imageRepositoryRef:
     name: simple-taskapp-api
   policy:
-    alphabetical:
-      order: asc
+    semver:
+      range: '>=0.0.0'
